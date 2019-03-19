@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -9,10 +10,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+
+    MediaPlayer playerA,playerB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        playerA = MediaPlayer.create(this, R.raw.song);
+        playerB = MediaPlayer.create(this,R.raw.aaaa);
     }
 
     public void clockwise(View view){
@@ -26,7 +32,12 @@ public class MainActivity extends Activity {
         ImageView image = (ImageView)findViewById(R.id.imageView);
         Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.clockwise);
+        if (playerB.isPlaying()){
+            playerB.stop();}
+
+        playerA.start();
         image.startAnimation(animation1);
+
     }
 
     public void fade(View view){
@@ -35,6 +46,11 @@ public class MainActivity extends Activity {
                 AnimationUtils.loadAnimation(getApplicationContext(),
                         R.anim.fade);
         image.startAnimation(animation1);
+        if (playerA.isPlaying()){
+        playerA.stop();}
+
+
+        playerB.start();
     }
 
     public void blink(View view){
